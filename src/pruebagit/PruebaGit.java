@@ -18,6 +18,11 @@ public class PruebaGit {
         // TODO code application logic here
         
         System.out.println("Esta es una prubea para trabajar en equipo.");
+        
+        Ventara una = new Ventara();
+        una.setVisible(true);
+        
+        
     }
     
 }
