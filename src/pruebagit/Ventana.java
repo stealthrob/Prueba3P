@@ -9,12 +9,12 @@ package pruebagit;
  *
  * @author RNS
  */
-public class Ventara extends javax.swing.JFrame {
+public class Ventana extends javax.swing.JFrame {
 
     /**
      * Creates new form Ventara
      */
-    public Ventara() {
+    public Ventana() {
         initComponents();
     }
 

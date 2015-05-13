@@ -19,7 +19,7 @@ public class PruebaGit {
         
         System.out.println("Esta es una prubea para trabajar en equipo.");
         
-        Ventara una = new Ventara();
+        Ventana una = new Ventana();
         una.setVisible(true);
         
         
