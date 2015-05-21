@@ -425,7 +425,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         btnDeposita.setEnabled(false);
         int dolares = Integer.parseInt(Deposito.txtdolares.getText());
         float centavos = Float.parseFloat(Deposito.txtcentavos.getText());
-        float cuenta = Integer.parseInt(Deposito.txtdepositara.getText());
+        int cuenta = Integer.parseInt(Deposito.txtdepositara.getText());
         centavos = centavos / 100;
         cantidad = dolares + centavos;
         System.out.println(cuenta);
@@ -435,6 +435,8 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             System.out.println("cuenta valida, entonces deposita" + cantidad);
                 bh = new BotonHilo(btnDeposita);
                 bh.start();
+                
+                
 
         } else {
             JOptionPane.showMessageDialog(this, "La cuenta a la que intenta depositar NO existe");
@@ -584,7 +586,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
+    public static javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnDeposita;
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnRetira;
