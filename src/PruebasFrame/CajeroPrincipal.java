@@ -25,8 +25,12 @@ import pruebagit.Cuenta;
 public class CajeroPrincipal extends javax.swing.JFrame {
  public static ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
     public static JTextField caja;
+    //panelInteraction maneja los paneles
     private int panelInteraction = 0;
+    //deposito //tambien se puede usar para retiro  
     float cantidad;
+    
+    //boton hilo es para que se duerma por 1 segundo 5 veces.
     private BotonHilo bh;
     public static int correctAccount=123;
     Cuenta uno;
@@ -36,6 +40,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
      */
     public CajeroPrincipal() {
         initComponents();
+        //ABRE PANEL NUM 0 QUE ES LOGIN
         manage_window(new Login());
 
         try {
@@ -54,7 +59,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             //Error cambiando el Look And Feel
             javax.swing.JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
-        uno = new Cuenta(123,123,100,1000);
+        uno = new Cuenta(123,"Roberto",123,100,1000);
         try {
             FileInputStream fi = new FileInputStream("Cuentas.dat");
             ObjectInputStream oi = new ObjectInputStream(fi);
@@ -102,7 +107,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         btnEnter = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         btnRetira = new javax.swing.JButton();
         btnDeposita = new javax.swing.JButton();
@@ -222,10 +227,10 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton13.setText("CANCELAR");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -273,7 +278,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                     .addComponent(btnEnter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(126, 126, 126)
@@ -302,7 +307,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -363,13 +368,13 @@ public class CajeroPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+//boton teclado 1
         caja.setText(caja.getText() + "1");
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
-
+//botonEnter 
         enterAction();
         /*        panelAcceso.removeAll();
          // m1.setVisible(true);
@@ -387,21 +392,49 @@ public class CajeroPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void enterAction() {
-     
+
+        
+        //estamos en login 
+        
+
         if (panelInteraction == 0) {
-            int account = Integer.parseInt(Login.txtnum.getText());
+
+           
             
             
-            char[] input = Login.txtnip.getPassword();
-            char[] correctPassword = {'1', '2', '3'};
-            boolean isCorrect = true;
+
+            String vacio1=Login.txtnum.getText();
+            char[] vacio2=Login.txtnip.getPassword();
+                if(vacio1.length()<1 || vacio2.length<1){
+                
+            JOptionPane.showMessageDialog(null, "No puede dejar algun campo vacio para accesar", "Error de captura", JOptionPane.ERROR_MESSAGE);
+        
+            }else{
+                
+            int account = Integer.parseInt(Login.txtnum.getText()); //Agarra texto del txtCuenta
+            int correctAccount = 123; //Numero de cuenta correcto // esto se cambiara por un for cuando este el archivo
+            int admin=456;
+            char[]adminpas={'4','5','6'};
+            char[] input = Login.txtnip.getPassword(); //agarra el texto que se puso en nip
+            char[] correctPassword = {'1', '2', '3'}; //este es mi nip correcto //esto se cambiara por un for cuando este el archivo
+            boolean isCorrect = false; //si es correcta es true 
+            
+            if(account==admin && input.length==adminpas.length){
+                manage_window(new AltaCuentas());
+                btnAceptar.setEnabled(false);
+                btnCancelar.setEnabled(false);
+                panelInteraction=5;
+            }else{
+            
+            //for ////////////////////////////
+
             if (account == correctAccount) {
                 System.out.println("CORRECTO ID");
                 isCorrect = false;
             } else {
                 JOptionPane.showMessageDialog(this, "Su cuenta es incorrecta");
                 isCorrect = true;
-                // Login.txtnum.setText("");
+               
             }
 
             
@@ -423,10 +456,20 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                     Login.txtnip.setText("");
                     Login.txtnum.setText("");
                 }
+            }}
             }
         } else {
+            //PANEL 1 MENU PRINCIPAL
+                
             if (panelInteraction == 1) {
-                int opc = Integer.parseInt(MenuPrincipal.txtopc.getText());
+                String vacio=MenuPrincipal.txtopc.getText();
+                
+                 if(vacio.length()<1){
+                
+            JOptionPane.showMessageDialog(null, "Debe escribir una opcion", "Error de captura", JOptionPane.ERROR_MESSAGE);
+        
+            }else{
+                     int opc = Integer.parseInt(MenuPrincipal.txtopc.getText());//dame el texto del usuario de la opcion que teclee
                 switch (opc) {
                     case 1:
                         manage_window(new Saldo());
@@ -450,22 +493,50 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         MenuPrincipal.txtopc.setText("");
                         break;
                 }
-            }else{
+
+                 }else{
                 if(panelInteraction==4){
+
+                 }
+             else {
+                //DEPOSITO PANEL
+                if (panelInteraction == 4) {
+                    String vacio1= Deposito.txtdolares.getText();
+                    String vacio2= Deposito.txtcentavos.getText();
+                    String vacio3= Deposito.txtdepositara.getText();
+                    if( vacio1.length() < 1 || vacio2.length()<1){
+            JOptionPane.showMessageDialog(null, "Introduce una cantidad", "Error de captura", JOptionPane.ERROR_MESSAGE);
+        }else{
+                        if(vacio3.length()<1){
+                             JOptionPane.showMessageDialog(null, "Introduce un numero de cuenta a depositar", "Error de captura", JOptionPane.ERROR_MESSAGE);
+                        }else{
+                              btnAceptar.setEnabled(false);
+
                     Depositar();
+
                 }else{
                     if(panelInteraction==2){
                        
                     }
+
+                        }
+                    }
+                  
+                    
+                         }
+
                 }
+                
+                         }
             }
             
            
             
-            
+                         
             
         }
-    }
+    
+    
     
     private void enterActionR(){
         
@@ -552,6 +623,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         
       
     }
+    
 
     private void Depositar() {
         btnDeposita.setEnabled(false);
@@ -572,6 +644,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
 
         } else {
             JOptionPane.showMessageDialog(this, "La cuenta a la que intenta depositar NO existe");
+            btnAceptar.setEnabled(true);
 
         }
 
@@ -649,6 +722,14 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         if (panelInteraction == 3) {
                             manage_window(new MenuPrincipal());
                             panelInteraction = 1;
+                        }else{
+                            if(panelInteraction==5){
+                              manage_window(new Login());
+                              btnAceptar.setEnabled(true);
+                              btnCancelar.setEnabled(true);
+                              panelInteraction=0;
+                                
+                            }
                         }
                     }
 
@@ -665,11 +746,11 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         //enterActionR();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Login.txtnip.setText("");
         Login.txtnum.setText("");
 
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnDepositaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositaActionPerformed
         if (bh.isAlive()) {
@@ -726,13 +807,13 @@ public class CajeroPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnDeposita;
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnRetira;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

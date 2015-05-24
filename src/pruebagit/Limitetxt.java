@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package PruebasFrame;
+package pruebagit;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;

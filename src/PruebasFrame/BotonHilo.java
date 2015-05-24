@@ -5,10 +5,12 @@
  */
 package PruebasFrame;
 
+//import PruebasFrame.CajeroPrincipal;
+//import java.util.logging.Level;
+//import PruebasFrame.CajeroPrincipal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,7 +36,7 @@ public class BotonHilo extends Thread {
         }
         
         btnDepositar.setEnabled(false);
-       
+        CajeroPrincipal.btnAceptar.setEnabled(true);
            
         
     }
