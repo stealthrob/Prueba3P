@@ -6,6 +6,7 @@
 
 package PruebasFrame;
 
+import pruebagit.Limitetxt;
 import java.awt.event.KeyEvent;
 
 /**
