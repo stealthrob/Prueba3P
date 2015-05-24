@@ -6,17 +6,32 @@
 
 package PruebasFrame;
 
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import pruebagit.Cuenta;
+
 /**
  *
  * @author Mariam
  */
 public class Retiro extends javax.swing.JPanel {
-
+public static ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
+int cuenta = CajeroPrincipal.correctAccount;
+ int pos;
     /**
      * Creates new form Retiro
      */
     public Retiro() {
         initComponents();
+        btnRetirar.setEnabled(false);
+        
+        
+        
     }
 
     /**
@@ -28,19 +43,165 @@ public class Retiro extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        lbldeposito = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtRetiro = new javax.swing.JTextField();
+        btnRetirar = new javax.swing.JButton();
+
+        jDesktopPane1.setBackground(new java.awt.Color(0, 102, 153));
+
+        lbldeposito.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbldeposito.setForeground(new java.awt.Color(255, 255, 255));
+        lbldeposito.setText("Retiro de la Cuenta");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Cantidad a Retirar: ");
+
+        txtRetiro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRetiroFocusGained(evt);
+            }
+        });
+        txtRetiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRetiroActionPerformed(evt);
+            }
+        });
+
+        btnRetirar.setText("Retirar");
+        btnRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetirarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                            .addGap(307, 307, 307)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(87, 87, 87)
+                            .addComponent(txtRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                            .addGap(144, 144, 144)
+                            .addComponent(lbldeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(438, Short.MAX_VALUE))
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(lbldeposito)
+                .addGap(41, 41, 41)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addComponent(btnRetirar)
+                .addGap(59, 59, 59))
+        );
+        jDesktopPane1.setLayer(lbldeposito, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txtRetiro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnRetirar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
+        // TODO add your handling code here:
+        
+        int llave =0;
+        try {
+            FileInputStream fi = new FileInputStream("Cuentas.dat");
+            ObjectInputStream oi = new ObjectInputStream(fi);
+             Cuentas = (ArrayList) oi.readObject();
+            oi.close();
+        } catch (Exception exception) {
+            System.out.println("Error -- " + exception.toString());
+            System.out.println("Error no se ha creado el archivo ");
+        }
+        
+        llave = validarNC(cuenta, Cuentas);
+        
+        System.out.println("Saldo disponible en la cuenta seleccionada"+Cuentas.get(pos).getBalanceTotal());
+                if ( Integer.parseInt(txtRetiro.getText()) <=Cuentas.get(pos).getBalanceTotal() ){
+                    Cuentas.get(pos).setBalanceTotal(Cuentas.get(pos).getBalanceTotal()-Integer.parseInt(txtRetiro.getText()));
+                    
+                }
+        
+        
+        try {
+            FileOutputStream fo = new FileOutputStream("Cuentas.dat");
+            ObjectOutputStream oo = new ObjectOutputStream(fo);
+            oo.writeObject(Cuentas);
+            oo.flush();
+            oo.close();
+            System.out.println("Vector almacenado en archivo");
+        } catch (IOException exception) {
+            System.out.println("Error -- " + exception.toString());
+        }
+        txtRetiro.setText("");
+    }//GEN-LAST:event_btnRetirarActionPerformed
+
+    private void txtRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRetiroActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+    }//GEN-LAST:event_txtRetiroActionPerformed
+
+    private void txtRetiroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRetiroFocusGained
+        // TODO add your handling code here:
+        btnRetirar.setEnabled(true);
+    }//GEN-LAST:event_txtRetiroFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRetirar;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lbldeposito;
+    private javax.swing.JTextField txtRetiro;
     // End of variables declaration//GEN-END:variables
+private int validarNC(int NC, ArrayList Array) {
+        int llave = 0; //Cero significa que no lo ha encontrado uno significa que lo ha encontrado
+        int cont =0;
+        for (Object cuenta : Array) {
+            
+                if (((Cuenta) (cuenta)).getNumDeCuenta()==NC) {
+                    llave = 1;
+                    System.out.println("NSS encontrado");
+                    System.out.println("Nombre del NSS encontrado: "
+                            + ((Cuenta) (cuenta)).getNumDeCuenta());
+                    
+                    pos = cont;
+                    break;
+
+                }
+
+            
+            cont++;
+        }
+        return llave;
+    }
+
 }

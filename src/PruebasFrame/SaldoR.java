@@ -10,12 +10,12 @@ package PruebasFrame;
  *
  * @author Mariam
  */
-public class Deposito extends javax.swing.JPanel {
+public class SaldoR extends javax.swing.JPanel {
 
     /**
      * Creates new form Deposito
      */
-    public Deposito() {
+    public SaldoR() {
         initComponents();
     }
 
@@ -38,6 +38,7 @@ public class Deposito extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1078, 299));
         setPreferredSize(new java.awt.Dimension(1078, 299));
@@ -74,14 +75,14 @@ public class Deposito extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Introduzca el número de cuenta al cual depositará");
 
-        txtdepositara.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtdepositaraActionPerformed(evt);
-            }
-        });
         txtdepositara.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtdepositaraFocusGained(evt);
+            }
+        });
+        txtdepositara.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdepositaraActionPerformed(evt);
             }
         });
         txtdepositara.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -116,6 +117,8 @@ public class Deposito extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText(".");
 
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -145,7 +148,9 @@ public class Deposito extends javax.swing.JPanel {
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(txtdepositara, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 364, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(86, 86, 86))))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(lbldeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,8 +178,9 @@ public class Deposito extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtdepositara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(84, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         jDesktopPane1.setLayer(lbldeposito, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(lblintroduzca, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -185,6 +191,7 @@ public class Deposito extends javax.swing.JPanel {
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -262,6 +269,7 @@ CajeroPrincipal.caja = this.txtdolares;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
