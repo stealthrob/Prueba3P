@@ -29,7 +29,7 @@ int cuenta = CajeroPrincipal.correctAccount;
     public Retiro() {
         initComponents();
         btnRetirar.setEnabled(false);
-        
+        txtRetiro.requestFocus();
         
         
     }
@@ -103,8 +103,8 @@ int cuenta = CajeroPrincipal.correctAccount;
                 .addGap(41, 41, 41)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                    .addComponent(txtRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addComponent(btnRetirar)
                 .addGap(59, 59, 59))
         );
@@ -180,7 +180,7 @@ int cuenta = CajeroPrincipal.correctAccount;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lbldeposito;
-    private javax.swing.JTextField txtRetiro;
+    public static javax.swing.JTextField txtRetiro;
     // End of variables declaration//GEN-END:variables
 private int validarNC(int NC, ArrayList Array) {
         int llave = 0; //Cero significa que no lo ha encontrado uno significa que lo ha encontrado

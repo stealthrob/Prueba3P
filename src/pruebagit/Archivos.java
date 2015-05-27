@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Archivos {
     public  void EscribirArchivo(ArrayList <Cuenta> cuentas){
      try {
-                       FileOutputStream fo = new FileOutputStream("cuentas.dat");
+                       FileOutputStream fo = new FileOutputStream("Cuentas.dat");
                        ObjectOutputStream oo = new ObjectOutputStream(fo);
                        oo.writeObject(cuentas);
                        oo.flush();
@@ -36,7 +36,7 @@ public class Archivos {
     public  ArrayList<Cuenta> LeerArchivo(){
         ArrayList <Cuenta> c = new ArrayList();
         try {
-                          FileInputStream fi = new FileInputStream("cuentas.dat");
+                          FileInputStream fi = new FileInputStream("Cuentas.dat");
                           ObjectInputStream oi = new ObjectInputStream(fi);
                           c = (ArrayList) oi.readObject();         
                           oi.close();

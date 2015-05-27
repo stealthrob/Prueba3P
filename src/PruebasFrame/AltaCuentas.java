@@ -74,6 +74,13 @@ public void MostrarDatoEnTabla(){
 
 
 }
+
+public void BorrarTabla(){
+    
+   System.out.println("aqui va a borrar la  tabla");
+      modelo.setRowCount(0);
+        
+}
 /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -381,7 +388,9 @@ public void MostrarDatoEnTabla(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
+BorrarTabla();
 Modificar();    
+MostrarDatoEnTabla();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificaActionPerformed
 

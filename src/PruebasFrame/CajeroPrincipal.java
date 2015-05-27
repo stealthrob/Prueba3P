@@ -23,16 +23,17 @@ import pruebagit.Cuenta;
  * @author Mariam
  */
 public class CajeroPrincipal extends javax.swing.JFrame {
- public static ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
+
+    public static ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
     public static JTextField caja;
     //panelInteraction maneja los paneles
     private int panelInteraction = 0;
     //deposito //tambien se puede usar para retiro  
     float cantidad;
-    
+
     //boton hilo es para que se duerma por 1 segundo 5 veces.
     private BotonHilo bh;
-    public static int correctAccount=123;
+    public static int correctAccount = 123;
     Cuenta uno;
 
     /**
@@ -40,6 +41,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
      */
     public CajeroPrincipal() {
         initComponents();
+        int id=123;
         //ABRE PANEL NUM 0 QUE ES LOGIN
         manage_window(new Login());
 
@@ -59,7 +61,9 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             //Error cambiando el Look And Feel
             javax.swing.JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
-        uno = new Cuenta(123,"Roberto",123,100,1000);
+        
+         id = id+3;
+        uno = new Cuenta(id, "Roberto", 123, 100, 1000);
         try {
             FileInputStream fi = new FileInputStream("Cuentas.dat");
             ObjectInputStream oi = new ObjectInputStream(fi);
@@ -69,8 +73,8 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             System.out.println("Error -- " + exception.toString());
             System.out.println("Error no se ha creado el archivo ");
         }
-         Cuentas.add(uno);
-         try {
+        Cuentas.add(uno);
+        try {
             FileOutputStream fo = new FileOutputStream("Cuentas.dat");
             ObjectOutputStream oo = new ObjectOutputStream(fo);
             oo.writeObject(Cuentas);
@@ -80,9 +84,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         } catch (IOException exception) {
             System.out.println("Error -- " + exception.toString());
         }
-        
-        
-    
+
     }
 
     /**
@@ -393,237 +395,215 @@ public class CajeroPrincipal extends javax.swing.JFrame {
 
     private void enterAction() {
 
-        
         //estamos en login 
-        
-
         if (panelInteraction == 0) {
 
-           
-            
-            
+            String vacio1 = Login.txtnum.getText();
+            char[] vacio2 = Login.txtnip.getPassword();
+            if (vacio1.length() < 1 || vacio2.length < 1) {
 
-            String vacio1=Login.txtnum.getText();
-            char[] vacio2=Login.txtnip.getPassword();
-                if(vacio1.length()<1 || vacio2.length<1){
-                
-            JOptionPane.showMessageDialog(null, "No puede dejar algun campo vacio para accesar", "Error de captura", JOptionPane.ERROR_MESSAGE);
-        
-            }else{
-                
-            int account = Integer.parseInt(Login.txtnum.getText()); //Agarra texto del txtCuenta
-            int correctAccount = 123; //Numero de cuenta correcto // esto se cambiara por un for cuando este el archivo
-            int admin=456;
-            char[]adminpas={'4','5','6'};
-            char[] input = Login.txtnip.getPassword(); //agarra el texto que se puso en nip
-            char[] correctPassword = {'1', '2', '3'}; //este es mi nip correcto //esto se cambiara por un for cuando este el archivo
-            boolean isCorrect = false; //si es correcta es true 
-            
-            if(account==admin && input.length==adminpas.length){
-                manage_window(new AltaCuentas());
-                btnAceptar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                panelInteraction=5;
-            }else{
-            
-            //for ////////////////////////////
+                JOptionPane.showMessageDialog(null, "No puede dejar algun campo vacio para accesar", "Error de captura", JOptionPane.ERROR_MESSAGE);
 
-            if (account == correctAccount) {
-                System.out.println("CORRECTO ID");
-                isCorrect = false;
             } else {
-                JOptionPane.showMessageDialog(this, "Su cuenta es incorrecta");
-                isCorrect = true;
-               
-            }
 
-            
-            
-            
-            if (isCorrect == false) { //verificacontraseña
-                if (input.length != correctPassword.length) {
-                    JOptionPane.showMessageDialog(this, "NIP Incorrecto");
+                int account = Integer.parseInt(Login.txtnum.getText()); //Agarra texto del txtCuenta
+                int correctAccount = 123; //Numero de cuenta correcto // esto se cambiara por un for cuando este el archivo
+                int admin = 456;
+                char[] adminpas = {'4', '5', '6'};
+                char[] input = Login.txtnip.getPassword(); //agarra el texto que se puso en nip
+                char[] correctPassword = {'1', '2', '3'}; //este es mi nip correcto //esto se cambiara por un for cuando este el archivo
+                boolean isCorrect = false; //si es correcta es true 
 
-                    Login.txtnip.setText("");
-                    Login.txtnum.setText("");
+                if (account == admin && input.length == adminpas.length) {
+                    manage_window(new AltaCuentas());
+                    btnAceptar.setEnabled(false);
+                    btnCancelar.setEnabled(false);
+                    panelInteraction = 5;
                 } else {
-                    manage_window(new MenuPrincipal());
-                    panelInteraction = 1;
 
+            //for ////////////////////////////
+                    if (account == correctAccount) {
+                        System.out.println("CORRECTO ID");
+                        isCorrect = false;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Su cuenta es incorrecta");
+                        isCorrect = true;
+
+                    }
+
+                    if (isCorrect == false) { //verificacontraseña
+                        if (input.length != correctPassword.length) {
+                            JOptionPane.showMessageDialog(this, "NIP Incorrecto");
+
+                            Login.txtnip.setText("");
+                            Login.txtnum.setText("");
+                        } else {
+                            manage_window(new MenuPrincipal());
+                            panelInteraction = 1;
+
+                        }
+                    } else {
+                        if (isCorrect == true) {
+                            Login.txtnip.setText("");
+                            Login.txtnum.setText("");
+                        }
+                    }
                 }
-            } else {
-                if (isCorrect == true) {
-                    Login.txtnip.setText("");
-                    Login.txtnum.setText("");
-                }
-            }}
             }
         } else {
             //PANEL 1 MENU PRINCIPAL
-                
+
             if (panelInteraction == 1) {
-                String vacio=MenuPrincipal.txtopc.getText();
-                
-                 if(vacio.length()<1){
-                
-            JOptionPane.showMessageDialog(null, "Debe escribir una opcion", "Error de captura", JOptionPane.ERROR_MESSAGE);
-        
-            }else{
-                     int opc = Integer.parseInt(MenuPrincipal.txtopc.getText());//dame el texto del usuario de la opcion que teclee
-                switch (opc) {
-                    case 1:
-                        manage_window(new Saldo());
-                        panelInteraction = 2;
-                        break;
-                    case 2:
-                        manage_window(new Retiro());
-                        panelInteraction = 3;
-                        
-                        break;
-                    case 3:
-                        manage_window(new Deposito());
-                        panelInteraction = 4;
-                        btnRetira.setEnabled(false);
-                        btnDeposita.setEnabled(false);
-                        
+                String vacio = MenuPrincipal.txtopc.getText();
 
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(this, "OPCION NO VALIDA, INTENTE DE NUEVO");
-                        MenuPrincipal.txtopc.setText("");
-                        break;
+                if (vacio.length() < 1) {
+
+                    JOptionPane.showMessageDialog(null, "Debe escribir una opcion", "Error de captura", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+                    int opc = Integer.parseInt(MenuPrincipal.txtopc.getText());//dame el texto del usuario de la opcion que teclee
+                    switch (opc) {
+                        case 1:
+                            manage_window(new Saldo());
+                            panelInteraction = 2;
+                            break;
+                        case 2:
+                            manage_window(new Retiro());
+                            panelInteraction = 3;
+                            Retiro.txtRetiro.requestFocus();
+                            
+                            break;
+                        case 3:
+                            manage_window(new Deposito());
+                            panelInteraction = 4;
+                            btnRetira.setEnabled(false);
+                            btnDeposita.setEnabled(false);
+
+
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(this, "OPCION NO VALIDA, INTENTE DE NUEVO");
+                            MenuPrincipal.txtopc.setText("");
+                            break;
+                    }
+
+                    
+                    
                 }
+                
+                
+                            
 
-                 }else{
-                if(panelInteraction==4){
+                            
+                                //DEPOSITO PANEL
+                                if (panelInteraction == 4) {
+                                    String vacio1 = Deposito.txtdolares.getText();
+                                    String vacio2 = Deposito.txtcentavos.getText();
+                                    String vacio3 = Deposito.txtdepositara.getText();
+                                    if (vacio1.length() < 1 || vacio2.length() < 1) {
+                                        JOptionPane.showMessageDialog(null, "Introduce una cantidad", "Error de captura", JOptionPane.ERROR_MESSAGE);
+                                    } else {
+                                        if (vacio3.length() < 1) {
+                                            JOptionPane.showMessageDialog(null, "Introduce un numero de cuenta a depositar", "Error de captura", JOptionPane.ERROR_MESSAGE);
+                                        } else {
+                                            btnAceptar.setEnabled(false);
 
-                 }
-             else {
-                //DEPOSITO PANEL
-                if (panelInteraction == 4) {
-                    String vacio1= Deposito.txtdolares.getText();
-                    String vacio2= Deposito.txtcentavos.getText();
-                    String vacio3= Deposito.txtdepositara.getText();
-                    if( vacio1.length() < 1 || vacio2.length()<1){
-            JOptionPane.showMessageDialog(null, "Introduce una cantidad", "Error de captura", JOptionPane.ERROR_MESSAGE);
-        }else{
-                        if(vacio3.length()<1){
-                             JOptionPane.showMessageDialog(null, "Introduce un numero de cuenta a depositar", "Error de captura", JOptionPane.ERROR_MESSAGE);
-                        }else{
-                              btnAceptar.setEnabled(false);
+                                            Depositar();
 
-                    Depositar();
+                                        }
 
-                }else{
+                        }
+                                    }else{
                     if(panelInteraction==2){
                        
                     }
 
-                        }
-                    }
-                  
-                    
-                         }
+                                
 
-                }
+                        }
                 
-                         }
-            }
-            
-           
-            
                          
+            }
+
+            
             
         }
+        
+        
+        
+    }
     
-    
-    
-    private void enterActionR(){
-        
-        
-        
-        
-        
-        switch(panelInteraction){
+
+    private void enterActionR() {
+
+        switch (panelInteraction) {
             case 0:
                 int account = Integer.parseInt(Login.txtnum.getText());
-            int correctAccount = 123;
-            
-            //char[] input = Login.txtnip.getPassword();
-            char[] input = Login.txtnip.getPassword();
-            char[] correctPassword = {'1', '2', '3'};
-            boolean isCorrect = true;
-            if (account == correctAccount) {
-                System.out.println("CORRECTO ID");
-                isCorrect = false;
-            } else {
-                JOptionPane.showMessageDialog(this, "Su cuenta es incorrecta");
-                isCorrect = true;
-                // Login.txtnum.setText("");
-            }
+                int correctAccount = 123;
 
-            
-            
-            
-            if (isCorrect == false) { //verificacontraseña
-                if (input.length != correctPassword.length) {
-                    JOptionPane.showMessageDialog(this, "NIP Incorrecto");
-
-                    Login.txtnip.setText("");
-                    Login.txtnum.setText("");
+                //char[] input = Login.txtnip.getPassword();
+                char[] input = Login.txtnip.getPassword();
+                char[] correctPassword = {'1', '2', '3'};
+                boolean isCorrect = true;
+                if (account == correctAccount) {
+                    System.out.println("CORRECTO ID");
+                    isCorrect = false;
                 } else {
-                    manage_window(new MenuPrincipal());
-                    panelInteraction = 1;
+                    JOptionPane.showMessageDialog(this, "Su cuenta es incorrecta");
+                    isCorrect = true;
+                    // Login.txtnum.setText("");
+                }
 
+                if (isCorrect == false) { //verificacontraseña
+                    if (input.length != correctPassword.length) {
+                        JOptionPane.showMessageDialog(this, "NIP Incorrecto");
+
+                        Login.txtnip.setText("");
+                        Login.txtnum.setText("");
+                    } else {
+                        manage_window(new MenuPrincipal());
+                        panelInteraction = 1;
+
+                    }
+                } else {
+                    if (isCorrect == true) {
+                        Login.txtnip.setText("");
+                        Login.txtnum.setText("");
+                    }
                 }
-            } else {
-                if (isCorrect == true) {
-                    Login.txtnip.setText("");
-                    Login.txtnum.setText("");
-                }
-            }
                 break;
             case 1:
-               
+
                 int opc = Integer.parseInt(MenuPrincipal.txtopc.getText());
-                
+
                 switch (opc) {
                     case 1:
                         manage_window(new Saldo());
                         panelInteraction = 2;
-                        
-                        
+
                         break;
                     case 2:
                         manage_window(new Retiro());
                         panelInteraction = 3;
-                        
+
                         break;
                     case 3:
                         manage_window(new Deposito());
                         panelInteraction = 4;
                         btnRetira.setEnabled(false);
                         btnDeposita.setEnabled(false);
-                        
-                        
+
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "OPCION NO VALIDA, INTENTE DE NUEVO");
                         MenuPrincipal.txtopc.setText("");
                         break;
                 }
-                
-                
-                
-                break;     
+
+                break;
         }
-        
-        
-        
-        
-      
+
     }
-    
 
     private void Depositar() {
         btnDeposita.setEnabled(false);
@@ -633,14 +613,12 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         centavos = centavos / 100;
         cantidad = dolares + centavos;
         System.out.println(cuenta);
-     //for
+        //for
 
         if (cuenta == 123) {
             System.out.println("cuenta valida, entonces deposita" + cantidad);
-                bh = new BotonHilo(btnDeposita);
-                bh.start();
-                
-                
+            bh = new BotonHilo(btnDeposita);
+            bh.start();
 
         } else {
             JOptionPane.showMessageDialog(this, "La cuenta a la que intenta depositar NO existe");
@@ -649,11 +627,9 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         }
 
     }
-    
-    
-    private void solicitarSaldo(){
-        
-        
+
+    private void solicitarSaldo() {
+
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -722,13 +698,13 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         if (panelInteraction == 3) {
                             manage_window(new MenuPrincipal());
                             panelInteraction = 1;
-                        }else{
-                            if(panelInteraction==5){
-                              manage_window(new Login());
-                              btnAceptar.setEnabled(true);
-                              btnCancelar.setEnabled(true);
-                              panelInteraction=0;
-                                
+                        } else {
+                            if (panelInteraction == 5) {
+                                manage_window(new Login());
+                                btnAceptar.setEnabled(true);
+                                btnCancelar.setEnabled(true);
+                                panelInteraction = 0;
+
                             }
                         }
                     }

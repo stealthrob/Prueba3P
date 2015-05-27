@@ -75,39 +75,9 @@ public class Cuenta implements Serializable{
         return saldoDispon;
     }
 
-    public int getNumDeCuenta() {
-        return numDeCuenta;
-    }
+  
 
-    public void setNumDeCuenta(int numDeCuenta) {
-        this.numDeCuenta = numDeCuenta;
-    }
-
-    public int getPin() {
-        return pin;
-    }
-
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
-
-    public double getBalanceDisponible() {
-        return balanceDisponible;
-    }
-
-    public void setBalanceDisponible(double balanceDisponible) {
-        this.balanceDisponible = balanceDisponible;
-    }
-
-    public double getBalanceTotal() {
-        return balanceTotal;
-    }
-
-    public void setBalanceTotal(double balanceTotal) {
-        this.balanceTotal = balanceTotal;
-    }
     
-   
     
     
     
