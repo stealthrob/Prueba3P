@@ -429,7 +429,7 @@ MostrarDatoEnTabla();
        double saldoTotal=Double.parseDouble(txtSaldo.getText());
        double saldoDisponible=saldoTotal; //+depositos
        
-       Cuenta c = new Cuenta(numcuenta,nombre,nip,saldoTotal, saldoDisponible);
+       Cuenta c = new Cuenta(numcuenta,nombre,nip,saldoTotal);
         //ArrayList<Materias> materias = 
        
             
@@ -692,7 +692,7 @@ private void Modificar(){
         double nuevosaldo=Double.parseDouble(txtSaldo.getText());
         double nuevodisponible=nuevosaldo;//+ deposito
        
-      Cuenta p=new Cuenta(numcuenta, nuevonombre,nuevonip,nuevosaldo,nuevodisponible);
+      Cuenta p=new Cuenta(numcuenta, nuevonombre,nuevonip,nuevosaldo);
         
         
         cuentas.set(encontrado, p);

@@ -21,7 +21,7 @@ public class Cuenta implements Serializable{
       return valid;
   }
 
-    public Cuenta(int numDeCuenta, String nombre, int pin, double balanceDisponible, double balanceTotal) {
+    public Cuenta(int numDeCuenta, String nombre, int pin,  double balanceTotal) {
         this.nombre=nombre;
         this.numDeCuenta = numDeCuenta;
         this.pin = pin;
