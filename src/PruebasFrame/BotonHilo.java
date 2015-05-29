@@ -11,6 +11,7 @@ package PruebasFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,9 +35,15 @@ public class BotonHilo extends Thread {
                 Logger.getLogger(BotonHilo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        JOptionPane.showMessageDialog(null,"Transaccion cancelada. Fuera de tiempo");
         btnDepositar.setEnabled(false);
         CajeroPrincipal.btnAceptar.setEnabled(true);
+        CajeroPrincipal.btnCancelar.setEnabled(true);
+        CajeroPrincipal.btnSalir.setEnabled(true);
+        Deposito.txtcentavos.setText(null);
+        Deposito.txtdepositara.setText(null);
+        Deposito.txtdolares.setText(null);
+     
            
         
     }

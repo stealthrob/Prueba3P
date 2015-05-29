@@ -57,7 +57,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         btnDeposita.setEnabled(false);
         btnRetira.setEnabled(false);
 
-        bh=new BotonHilo(btnDeposita);
+       
         cuentas=new ArrayList<Cuenta>();
         a=new Archivos();
         try {
@@ -104,7 +104,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         btnEnter = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         btnRetira = new javax.swing.JButton();
         btnDeposita = new javax.swing.JButton();
         desktop = new javax.swing.JDesktopPane();
@@ -230,10 +230,10 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton14.setText("SALIR");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -281,7 +281,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(126, 126, 126)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRetira, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,7 +310,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,8 +520,11 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                             
                              System.out.println("ENTRA A PANEL 4");
                             btnAceptar.setEnabled(false);
+                            btnCancelar.setEnabled(false);
+                            btnSalir.setEnabled(false);
                             Depositar();
-                            bh.start();
+                            
+                           
 
                           
                }  
@@ -582,7 +585,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
 //MenuPrincipal m= new MenuPrincipal();
         if (panelInteraction == 1) {
             manage_window(new Login());
@@ -620,7 +623,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         }
         //System.exit(0);
 // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         enterAction();
@@ -633,13 +636,19 @@ public class CajeroPrincipal extends javax.swing.JFrame {
 
         if (panelInteraction == 1) {
             MenuPrincipal.txtopc.setText("");
+        }else{
+            if(panelInteraction==4){
+                Deposito.txtcentavos.setText(null);
+                Deposito.txtdepositara.setText(null);
+                Deposito.txtdolares.setText(null);
+            }
         }
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnDepositaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositaActionPerformed
         if (bh.isAlive()) {
-            bh.interrupt();
+            bh.stop();
             btnDeposita.setEnabled(true);
             
             int numcuenta=cuentas.get(encontrado).getNumDeCuenta();
@@ -659,6 +668,9 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             Deposito.txtdolares.setText(null);
             Deposito.txtcentavos.setText(null);
             Deposito.txtdepositara.setText(null);
+            btnCancelar.setEnabled(true);
+            btnSalir.setEnabled(true);
+            btnDeposita.setEnabled(false);
         }
     }//GEN-LAST:event_btnDepositaActionPerformed
 
@@ -792,17 +804,21 @@ double saldocajero=10000;
             Cuenta c1=cuentas.get(i);
             if(cuenta!=c1.getNumDeCuenta()){
                 bandera=false;
+               
             }else{
                 bandera=true;
                saldo=c1.getBalanceTotal();
                 System.out.println(saldo);
                 encontrado=i;
-               
+               break;
             }
+            
         }
         
         //VALIDAR CANTIDAD DE DOLARES
         if(bandera==true){
+             bh=new BotonHilo(btnDeposita);
+             bh.start();
             System.out.println("Entra a bandera true");
             saldonuevo=saldo+cantidad;
                 System.out.println(saldonuevo);
@@ -819,6 +835,10 @@ double saldocajero=10000;
         }else {
             JOptionPane.showMessageDialog(this, "La cuenta a la que intenta depositar NO existe");
             btnAceptar.setEnabled(true);
+            btnDeposita.setEnabled(false);
+            btnCancelar.setEnabled(true);
+            btnSalir.setEnabled(true);
+            Deposito.txtdepositara.setText(null);
 
         }
 
@@ -826,14 +846,14 @@ double saldocajero=10000;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnAceptar;
-    private javax.swing.JButton btnCancelar;
+    protected static javax.swing.JButton btnCancelar;
     protected static javax.swing.JButton btnDeposita;
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnRetira;
+    protected static javax.swing.JButton btnSalir;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
