@@ -8,13 +8,14 @@ package PruebasFrame;
 
 import java.awt.event.KeyAdapter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import pruebagit.Archivos;
-import pruebagit.Cuenta;
-import pruebagit.Limitetxt;
-import pruebagit.ValidarMayusculas;
+import pruebagit.*;
+
 
 /**
  *
@@ -23,7 +24,11 @@ import pruebagit.ValidarMayusculas;
 public class AltaCuentas extends javax.swing.JPanel {
 private DefaultTableModel modelo = new DefaultTableModel();
 ArrayList<Cuenta> cuentas;
+
+//prueba comparable
+ArrayList<CuentaPruebaComparable> cuentas1;
  Archivos a;
+ 
 
        int encontrado;
    
@@ -61,15 +66,34 @@ public void MostrarDatoEnTabla(){
     
        
        cuentas = a.LeerArchivo();
-       System.out.println("aqui va a impirmi en tabla");
+       
+       Collections.sort(cuentas, new Comparator (){
+    
+
+           @Override
+           public int compare(Object o1, Object o2) {
+              return new Integer (((Cuenta)o1).getNumDeCuenta()).compareTo(new Integer(((Cuenta)o2).getNumDeCuenta())); 
+           }
+       });
+      
+       
+      
+       System.out.println("Aqui va a impirmi en tabla");
+       
+       
+       
+       
         for (int cont = 0; cont < cuentas.size(); cont++) {
+            
             Cuenta c = cuentas.get(cont);
             modelo.insertRow(cont, new Object[]{});
+            
             modelo.setValueAt(c.getNumDeCuenta(), cont, 0);
             modelo.setValueAt(c.getNombre(), cont, 1);
             modelo.setValueAt(c.getPin(), cont, 2);
             modelo.setValueAt(c.getBalanceDisponible(), cont, 3);
             modelo.setValueAt(c.getBalanceTotal(), cont, 4);
+            
         }
 
 
@@ -395,9 +419,9 @@ MostrarDatoEnTabla();
     }//GEN-LAST:event_btnModificaActionPerformed
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
- Altas();
-        
-        
+        BorrarTabla();
+        Altas();
+        MostrarDatoEnTabla();
     }//GEN-LAST:event_btnAltaActionPerformed
 
     
@@ -443,7 +467,7 @@ MostrarDatoEnTabla();
         }else{
           for (int i = 0;  i < cuentas.size(); i++) {
             Cuenta c1 = cuentas.get(i);
-            if (c1.getNumDeCuenta()!=numcuenta && c1.getPin()!=nip) {
+            if (c1.getNumDeCuenta()!=numcuenta) {
            
                 System.out.println("Recorriendo array.... NO SE HA ENCONTRARO 1 IGUAL");
                      bandera=true;

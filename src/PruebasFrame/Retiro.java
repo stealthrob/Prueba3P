@@ -93,6 +93,8 @@ int cuenta = CajeroPrincipal.correctAccount;
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Únicamente cantidades que sean múltiplo de 20.");
 
+        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("$ 100");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,15 +102,30 @@ int cuenta = CajeroPrincipal.correctAccount;
             }
         });
 
-        jCheckBox2.setText("jCheckBox2");
+        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox2.setText("$ 200");
 
-        jCheckBox3.setText("jCheckBox3");
+        jCheckBox3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox3.setText("$400");
 
-        jCheckBox4.setText("jCheckBox4");
+        jCheckBox4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox4.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox4.setText("$800");
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox5.setText("jCheckBox5");
+        jCheckBox5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox5.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox5.setText("$500");
 
-        jCheckBox6.setText("jCheckBox6");
+        jCheckBox6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox6.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox6.setText("$ 1000");
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -166,7 +183,7 @@ int cuenta = CajeroPrincipal.correctAccount;
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jCheckBox5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox3)
                     .addComponent(jCheckBox6))
@@ -255,12 +272,16 @@ int cuenta = CajeroPrincipal.correctAccount;
 
     private void txtRetiroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRetiroFocusGained
         // TODO add your handling code here:
-        btnRetirar.setEnabled(true);
+        
     }//GEN-LAST:event_txtRetiroFocusGained
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

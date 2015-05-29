@@ -5,6 +5,8 @@
  */
 package PruebasFrame;
 
+import static PruebasFrame.Retiro.Cuentas;
+import static PruebasFrame.Retiro.txtRetiro;
 import java.awt.Component;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,6 +33,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
     boolean bandera, bandera1;
     double saldonuevo;
     int encontrado;
+    int pos;
     //panelInteraction maneja los paneles
     private int panelInteraction = 0;
     //deposito //tambien se puede usar para retiro  
@@ -235,6 +238,11 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         });
 
         btnRetira.setText("RETIRA");
+        btnRetira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetiraActionPerformed(evt);
+            }
+        });
 
         btnDeposita.setText("DEPOSITA");
         btnDeposita.addActionListener(new java.awt.event.ActionListener() {
@@ -320,7 +328,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(btnDeposita)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         desktop.setBackground(new java.awt.Color(0, 102, 153));
@@ -415,7 +423,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                     }else{
                         bandera=true;
                         System.out.println("Hay uno igual");
-                      
+                      break;
                     }
                     
                     
@@ -654,6 +662,64 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDepositaActionPerformed
 
+    private void btnRetiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiraActionPerformed
+        // TODO add your handling code here:
+       int llave = 0; 
+        try {
+            FileInputStream fi = new FileInputStream("Cuentas.dat");
+            ObjectInputStream oi = new ObjectInputStream(fi);
+             Cuentas = (ArrayList) oi.readObject();
+            oi.close();
+        } catch (Exception exception) {
+            System.out.println("Error -- " + exception.toString());
+            System.out.println("Error no se ha creado el archivo ");
+        }
+         
+         
+        llave = validarNC(correctAccount, Cuentas);
+        
+        System.out.println("Saldo disponible en la cuenta seleccionada"+Cuentas.get(pos).getBalanceTotal());
+                if ( Integer.parseInt(txtRetiro.getText()) <=Cuentas.get(pos).getBalanceTotal() ){
+                    Cuentas.get(pos).setBalanceTotal(Cuentas.get(pos).getBalanceTotal()-Integer.parseInt(txtRetiro.getText()));
+                    
+                }
+        
+        
+        try {
+            FileOutputStream fo = new FileOutputStream("Cuentas.dat");
+            ObjectOutputStream oo = new ObjectOutputStream(fo);
+            oo.writeObject(Cuentas);
+            oo.flush();
+            oo.close();
+            System.out.println("Vector almacenado en archivo");
+        } catch (IOException exception) {
+            System.out.println("Error -- " + exception.toString());
+        }
+        txtRetiro.setText("");
+        
+    }//GEN-LAST:event_btnRetiraActionPerformed
+
+    private int validarNC(int NC, ArrayList Array) {
+        int llave = 0; //Cero significa que no lo ha encontrado uno significa que lo ha encontrado
+        int cont =0;
+        for (Object cuenta : Array) {
+            
+                if (((Cuenta) (cuenta)).getNumDeCuenta()==NC) {
+                    llave = 1;
+                    System.out.println("NSS encontrado");
+                    System.out.println("Nombre del NSS encontrado: "
+                            + ((Cuenta) (cuenta)).getNumDeCuenta());
+                    
+                    pos = cont;
+                    break;
+
+                }
+
+            
+            cont++;
+        }
+        return llave;
+    }
     /**
      * @param args the command line arguments
      */
