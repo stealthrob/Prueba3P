@@ -26,6 +26,7 @@ Cuenta uno;
     public Saldo() {
         int llave =0;
         initComponents();
+        System.out.println("Se crean los componentes...");
         
         try {
             FileInputStream fi = new FileInputStream("Cuentas.dat");
@@ -36,7 +37,8 @@ Cuenta uno;
             System.out.println("Error -- " + exception.toString());
             System.out.println("Error no se ha creado el archivo ");
         }
-        
+        System.out.println("Esta ingresando a las cuentas...");
+        System.out.println(cuenta);
         llave = validarNC(cuenta, Cuentas);
         
         LblCuenta.setText(Double.toString( Cuentas.get(pos).getBalanceTotal() ));
@@ -196,16 +198,7 @@ Cuenta uno;
     
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         // TODO add your handling code here:
-        try {
-            FileInputStream fi = new FileInputStream("Empleados.dat");
-            ObjectInputStream oi = new ObjectInputStream(fi);
-            Cuentas = (ArrayList) oi.readObject();
-            oi.close();
-        } catch (Exception exception) {
-            System.out.println("Error -- " + exception.toString());
-            System.out.println("Error no se ha creado el archivo ");
-        }
-        
+       
         
     }//GEN-LAST:event_btnConsultaActionPerformed
 

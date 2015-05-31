@@ -52,7 +52,7 @@ ArrayList<CuentaPruebaComparable> cuentas1;
         modelo.addColumn("No.Cuenta");
         modelo.addColumn("Nombre");
         modelo.addColumn("NIP");
-        modelo.addColumn("Saldo Total");
+        //modelo.addColumn("Saldo Total");
         modelo.addColumn("Saldo Disponible");
         table.setModel(modelo);
         
@@ -91,8 +91,8 @@ public void MostrarDatoEnTabla(){
             modelo.setValueAt(c.getNumDeCuenta(), cont, 0);
             modelo.setValueAt(c.getNombre(), cont, 1);
             modelo.setValueAt(c.getPin(), cont, 2);
-            modelo.setValueAt(c.getBalanceDisponible(), cont, 3);
-            modelo.setValueAt(c.getBalanceTotal(), cont, 4);
+            //modelo.setValueAt(c.getBalanceDisponible(), cont, 3);
+            modelo.setValueAt(c.getBalanceTotal(), cont, 3);
             
         }
 
@@ -459,15 +459,16 @@ MostrarDatoEnTabla();
             
         cuentas=a.LeerArchivo(); //LEO ERCHIVO
         
-        if(cuentas.size()==0){
+        if(cuentas.size()==0&&c.getNumDeCuenta()!=456){
                     cuentas.add(c);
           a.EscribirArchivo(cuentas);
       JOptionPane.showMessageDialog(null, "¡Listo!");
         
-        }else{
+        }else {
+            bandera=false;
           for (int i = 0;  i < cuentas.size(); i++) {
             Cuenta c1 = cuentas.get(i);
-            if (c1.getNumDeCuenta()!=numcuenta) {
+            if (c1.getNumDeCuenta()!=numcuenta&&c.getNumDeCuenta()!=456) {
            
                 System.out.println("Recorriendo array.... NO SE HA ENCONTRARO 1 IGUAL");
                      bandera=true;
@@ -491,6 +492,10 @@ MostrarDatoEnTabla();
         a.EscribirArchivo(cuentas);
 
         JOptionPane.showMessageDialog(null, "¡Listo!");
+        txtCuenta.setText("");
+          txtNombre.setText("");
+          txtNip.setText("");
+          txtSaldo.setText("");
         break;
         }
         

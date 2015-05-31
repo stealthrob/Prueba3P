@@ -5,8 +5,8 @@
  */
 package PruebasFrame;
 
-import static PruebasFrame.Retiro.Cuentas;
-import static PruebasFrame.Retiro.txtRetiro;
+import static PruebasFrame.MenuPrincipal.txtopc;
+import static PruebasFrame.Retiro.*;
 import java.awt.Component;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import pruebagit.Archivos;
-import pruebagit.Cuenta;
+import pruebagit.*;
+
 
 /**
  *
@@ -41,7 +41,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
 
     //boton hilo es para que se duerma por 1 segundo 5 veces.
     private BotonHilo bh;
-    public static int correctAccount = 123;
+    public static int correctAccount;
     Cuenta uno;
     
     
@@ -52,8 +52,10 @@ public class CajeroPrincipal extends javax.swing.JFrame {
     public CajeroPrincipal() {
         initComponents();
         int id = 123;
+        
         //ABRE PANEL NUM 0 QUE ES LOGIN
         manage_window(new Login());
+        Login.txtnum.requestFocus();
         btnDeposita.setEnabled(false);
         btnRetira.setEnabled(false);
 
@@ -393,10 +395,15 @@ public class CajeroPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void enterAction() {
-
+        int poscuent =0;
         //estamos en login 
+        
+        this.correctAccount=Integer.parseInt(Login.txtnum.getText());
+        System.out.println(correctAccount);
         if (panelInteraction == 0) {
-
+btnRetira.setEnabled(false);
+btnCancelar.setEnabled(true);
+                            btnAceptar.setEnabled(true);
             String vacio1 = Login.txtnum.getText();
             char[] vacio2 = Login.txtnip.getPassword();
             if (vacio1.length() < 1 || vacio2.length < 1) {
@@ -421,6 +428,8 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         System.out.println("no hay uno igual");
                         bandera=false;
                     }else{
+                        
+                        poscuent=i;
                         bandera=true;
                         System.out.println("Hay uno igual");
                       break;
@@ -428,15 +437,36 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                     
                     
                 }
+                 System.out.println("Cuenta correcta... bandera en true");
+                 
                 if(bandera==false){
-                    JOptionPane.showMessageDialog(this, "Cuenta Incorrecta");
+                    JOptionPane.showMessageDialog(this, "Cuenta o NIP Incorrecto"); //ESto se pone por motivos de seguridad
+                    System.out.println("Cuenta incorecta.");
+                    
                     Login.txtnum.setText("");
                     Login.txtnip.setText("");
                 }
                 
                 if(bandera==true){
-                    for (int i = 0; i < cuentas.size(); i++) {
-                          Cuenta c2 = cuentas.get(i);
+                    
+                     Cuenta c2 = cuentas.get(poscuent);
+                     
+                     
+                    if(c2.getPin()==nip1){
+                        
+                        System.out.println("Bienvenido, nip correcto");
+                        manage_window(new MenuPrincipal());
+                         panelInteraction=1;
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Cuenta o NIP Incorrecto");
+                        System.out.println("NIP incorrecto");
+                             Login.txtnum.setText("");
+                    Login.txtnip.setText("");
+                    }
+                    
+                   /* for (int i = 0; i < cuentas.size(); i++) {
+                         
+                          System.out.println("Este es el nip ingresado"+nip1);
                           if(nip1!=c2.getPin()){
                               System.out.println("no hay nip igual");
                               bandera1=false;
@@ -445,9 +475,9 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                              bandera1=true;
                               System.out.println("hay un nip igual");
                           }
-                }
+                }*/
                     
-                    if(bandera1==true){
+                   /* if(bandera1==true){
                         manage_window(new MenuPrincipal());
                         System.out.println("BIENVENIDO");
                         panelInteraction=1;
@@ -456,7 +486,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "NIP incorrecto");
                              Login.txtnum.setText("");
                     Login.txtnip.setText("");
-                            }
+                            }*/
                             
                 }
              }
@@ -467,10 +497,11 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             //PANEL 1 MENU PRINCIPAL
 
             if (panelInteraction == 1) {
+                MenuPrincipal.txtopc.requestFocus();
                 String vacio = MenuPrincipal.txtopc.getText();
-
+                btnRetira.setEnabled(false);
                 if (vacio.length() < 1) {
-
+                    MenuPrincipal.txtopc.requestFocus();
                     JOptionPane.showMessageDialog(null, "Debe escribir una opcion", "Error de captura", JOptionPane.ERROR_MESSAGE);
 
                 } else {
@@ -479,12 +510,16 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         case 1:
                             manage_window(new Saldo());
                             panelInteraction = 2;
+                            btnCancelar.setEnabled(false);
+                            btnAceptar.setEnabled(false);
+                            System.out.println("Esta entrando a el saldo.");
+                            btnRetira.setEnabled(false);
                             break;
                         case 2:
                             manage_window(new Retiro());
                             panelInteraction = 3;
                             btnRetira.setEnabled(true);
-                            Retiro.txtRetiro.requestFocus();
+                            Retiro.txtRetiroOtraCantidad.requestFocus();
 
                             break;
                         case 3:
@@ -492,6 +527,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                             panelInteraction = 4;
                             btnRetira.setEnabled(false);
                             btnDeposita.setEnabled(false);
+                            
                        
 
 
@@ -499,6 +535,7 @@ public class CajeroPrincipal extends javax.swing.JFrame {
                         default:
                             JOptionPane.showMessageDialog(this, "OPCION NO VALIDA, INTENTE DE NUEVO");
                             MenuPrincipal.txtopc.setText("");
+                            MenuPrincipal.txtopc.requestFocus();
                             break;
                     }
 
@@ -590,22 +627,34 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         if (panelInteraction == 1) {
             manage_window(new Login());
             panelInteraction = 0;
+            btnRetira.setEnabled(false);
         } else {
             if (panelInteraction == 0) {
                 System.exit(0);
-
+                btnRetira.setEnabled(false);
             } else {
                 if (panelInteraction == 2) {
                     manage_window(new MenuPrincipal());
+                    btnCancelar.setEnabled(true);
+                    btnAceptar.setEnabled(true);
                     panelInteraction = 1;
+                    
                 } else {
                     if (panelInteraction == 4) {
                         manage_window(new MenuPrincipal());
+                        btnCancelar.setEnabled(true);
+                    btnAceptar.setEnabled(true);
                         panelInteraction = 1;
+                        
                     } else {
                         if (panelInteraction == 3) {
                             manage_window(new MenuPrincipal());
+                            
                             panelInteraction = 1;
+                            btnCancelar.setEnabled(true);
+                            btnAceptar.setEnabled(true);
+                            btnRetira.setEnabled(false);
+                            
                         } else {
                             if (panelInteraction == 5) {
                                 manage_window(new Login());
@@ -621,28 +670,79 @@ public class CajeroPrincipal extends javax.swing.JFrame {
             }
 
         }
+        MenuPrincipal.txtopc.requestFocus();
         //System.exit(0);
 // TODO add your handling code here:
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         enterAction();
-        //enterActionR();
+       
+       
+       switch(panelInteraction){
+           case 1:
+                MenuPrincipal.txtopc.requestFocus();
+               break;
+           case 2:
+               break;
+           case 3:
+               btnAceptar.setEnabled(false);
+               break;
+           case 4:
+               break;
+           case 5:
+               break;
+       }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        Login.txtnip.setText("");
-        Login.txtnum.setText("");
+        //Login.txtnip.setText("");
+        //Login.txtnum.setText("");
 
-        if (panelInteraction == 1) {
+        /*if (panelInteraction == 1) {
             MenuPrincipal.txtopc.setText("");
-        }else{
-            if(panelInteraction==4){
+        }else if(panelInteraction==4){
+            
                 Deposito.txtcentavos.setText(null);
                 Deposito.txtdepositara.setText(null);
                 Deposito.txtdolares.setText(null);
-            }
+            
+        }else if(){
+            
+        }*/
+        
+        switch(panelInteraction){
+            case 0:
+                btnRetira.setEnabled(false);
+                Login.txtnip.setText("");
+                Login.txtnum.setText("");
+                break;
+            case 1:
+                MenuPrincipal.txtopc.setText("");
+                MenuPrincipal.txtopc.requestFocus();
+                btnCancelar.setEnabled(true);
+                break;
+            case 2:
+                btnCancelar.setEnabled(false);
+                break;
+            case 3:
+                Retiro.txtRetiroOtraCantidad.setEnabled(false);
+                txtRetiroOtraCantidad.setText("");
+                Retiro.jCheckBox100.setEnabled(true);
+                Retiro.jCheckBox200.setEnabled(true);
+                 Retiro.jCheckBox400.setEnabled(true);
+                 Retiro.jCheckBox600.setEnabled(true);
+                 Retiro.jCheckBox800.setEnabled(true);
+                 Retiro.jCheckBox1000.setEnabled(true);
+                 Retiro.cantidadARetirar =0;
+                break;
+            case 4:
+                Deposito.txtcentavos.setText(null);
+                Deposito.txtdepositara.setText(null);
+                Deposito.txtdolares.setText(null);
+                break;
         }
+        
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -677,6 +777,8 @@ public class CajeroPrincipal extends javax.swing.JFrame {
     private void btnRetiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiraActionPerformed
         // TODO add your handling code here:
        int llave = 0; 
+       int retiro=0;
+       boolean noVeinte=true;
         try {
             FileInputStream fi = new FileInputStream("Cuentas.dat");
             ObjectInputStream oi = new ObjectInputStream(fi);
@@ -690,12 +792,57 @@ public class CajeroPrincipal extends javax.swing.JFrame {
          
         llave = validarNC(correctAccount, Cuentas);
         
-        System.out.println("Saldo disponible en la cuenta seleccionada"+Cuentas.get(pos).getBalanceTotal());
-                if ( Integer.parseInt(txtRetiro.getText()) <=Cuentas.get(pos).getBalanceTotal() ){
-                    Cuentas.get(pos).setBalanceTotal(Cuentas.get(pos).getBalanceTotal()-Integer.parseInt(txtRetiro.getText()));
-                    
-                }
+        if(!Retiro.txtRetiroOtraCantidad.isEditable()||!Retiro.txtRetiroOtraCantidad.isEnabled()){
+        if (jCheckBox100.isSelected()) {
+            Retiro.cantidadARetirar=Retiro.cantidadARetirar+100;
+        }
         
+        if (jCheckBox200.isSelected()) {
+            Retiro.cantidadARetirar=Retiro.cantidadARetirar+200;
+        }
+        if (jCheckBox400.isSelected()) {
+            Retiro.cantidadARetirar=Retiro.cantidadARetirar+400;
+        }
+        if (jCheckBox600.isSelected()) {
+            Retiro.cantidadARetirar=Retiro.cantidadARetirar+600;
+        }
+        if (jCheckBox800.isSelected()) {
+            Retiro.cantidadARetirar=Retiro.cantidadARetirar+800;
+        }
+        if (jCheckBox1000.isSelected()) {
+            Retiro.cantidadARetirar=Retiro.cantidadARetirar+1000;
+        }
+        retiro=Retiro.cantidadARetirar;
+        noVeinte=false;
+        }else{
+            int prueba=Integer.parseInt(txtRetiroOtraCantidad.getText());
+            if(prueba%20==0){
+                 retiro=prueba;
+            }else{
+                 noVeinte=true;
+            }
+           
+        }
+        
+        
+        System.out.println("Saldo disponible en la cuenta seleccionada"+Cuentas.get(pos).getBalanceTotal());
+        
+        System.out.println("esta es la cantidad que se quiere retirar"+retiro);
+        
+        if(!noVeinte){
+                if ( retiro <=Cuentas.get(pos).getBalanceTotal() ){
+                    Cuentas.get(pos).setBalanceTotal(Cuentas.get(pos).getBalanceTotal()-retiro);
+                    JOptionPane.showMessageDialog(rootPane, "Retiro Exitoso.");
+                    retiro=0;
+                   
+                }else{
+                    JOptionPane.showMessageDialog(rootPane,"No tiene suficiente saldo para hacer el retiro.");
+                   
+                    retiro=0;
+                }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "La cantidad especificada no es múltiplo de 20.");
+        }
         
         try {
             FileOutputStream fo = new FileOutputStream("Cuentas.dat");
@@ -707,7 +854,16 @@ public class CajeroPrincipal extends javax.swing.JFrame {
         } catch (IOException exception) {
             System.out.println("Error -- " + exception.toString());
         }
-        txtRetiro.setText("");
+        txtRetiroOtraCantidad.setText("");
+        
+        manage_window(new MenuPrincipal());
+                            
+                            panelInteraction = 1;
+                            btnCancelar.setEnabled(true);
+                            btnAceptar.setEnabled(true);
+                            btnRetira.setEnabled(false);
+                            Retiro.cantidadARetirar=0;
+       
         
     }//GEN-LAST:event_btnRetiraActionPerformed
 
@@ -802,6 +958,8 @@ double saldocajero=10000;
         
         for (int i = 0; i <cuentas.size() ; i++) {
             Cuenta c1=cuentas.get(i);
+            
+            
             if(cuenta!=c1.getNumDeCuenta()){
                 bandera=false;
                

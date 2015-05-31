@@ -20,6 +20,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
      */
     public MenuPrincipal() {
         initComponents();
+        
     }
 
     /**
@@ -158,7 +159,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtopcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtopcActionPerformed
-CajeroPrincipal.caja = this.txtopc;       
+CajeroPrincipal.caja = this.txtopc;      
+
         
         
     }//GEN-LAST:event_txtopcActionPerformed

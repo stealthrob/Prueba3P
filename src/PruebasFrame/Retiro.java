@@ -20,6 +20,7 @@ import pruebagit.Cuenta;
  * @author Mariam
  */
 public class Retiro extends javax.swing.JPanel {
+   public static int cantidadARetirar=0;
 public static ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
 int cuenta = CajeroPrincipal.correctAccount;
  int pos;
@@ -28,9 +29,9 @@ int cuenta = CajeroPrincipal.correctAccount;
      */
     public Retiro() {
         initComponents();
-        btnRetirar.setEnabled(false);
-        txtRetiro.requestFocus();
         
+       txtRetiroOtraCantidad.setEnabled(false);
+        cantidadARetirar=0;
         
     }
 
@@ -45,17 +46,16 @@ int cuenta = CajeroPrincipal.correctAccount;
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         lbldeposito = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        txtRetiro = new javax.swing.JTextField();
-        btnRetirar = new javax.swing.JButton();
+        txtRetiroOtraCantidad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
+        jCheckBox100 = new javax.swing.JCheckBox();
+        jCheckBox200 = new javax.swing.JCheckBox();
+        jCheckBox400 = new javax.swing.JCheckBox();
+        jCheckBox800 = new javax.swing.JCheckBox();
+        jCheckBox600 = new javax.swing.JCheckBox();
+        jCheckBox1000 = new javax.swing.JCheckBox();
+        jButtonOtraCantidad = new javax.swing.JButton();
 
         jDesktopPane1.setBackground(new java.awt.Color(0, 102, 153));
 
@@ -63,25 +63,14 @@ int cuenta = CajeroPrincipal.correctAccount;
         lbldeposito.setForeground(new java.awt.Color(255, 255, 255));
         lbldeposito.setText("Retiro de la Cuenta");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Desea retirar otra cantidad:");
-
-        txtRetiro.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtRetiroOtraCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtRetiroFocusGained(evt);
+                txtRetiroOtraCantidadFocusGained(evt);
             }
         });
-        txtRetiro.addActionListener(new java.awt.event.ActionListener() {
+        txtRetiroOtraCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRetiroActionPerformed(evt);
-            }
-        });
-
-        btnRetirar.setText("Retirar");
-        btnRetirar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRetirarActionPerformed(evt);
+                txtRetiroOtraCantidadActionPerformed(evt);
             }
         });
 
@@ -93,74 +82,97 @@ int cuenta = CajeroPrincipal.correctAccount;
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Únicamente cantidades que sean múltiplo de 20.");
 
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("$ 100");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox100.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox100.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox100.setText("$ 100");
+        jCheckBox100.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jCheckBox100ActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("$ 200");
-
-        jCheckBox3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setText("$400");
-
-        jCheckBox4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox4.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox4.setText("$800");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox200.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox200.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox200.setText("$ 200");
+        jCheckBox200.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
+                jCheckBox200ActionPerformed(evt);
             }
         });
 
-        jCheckBox5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox5.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox5.setText("$500");
+        jCheckBox400.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox400.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox400.setText("$400");
+        jCheckBox400.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox400ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox6.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox6.setText("$ 1000");
+        jCheckBox800.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox800.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox800.setText("$800");
+        jCheckBox800.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox800ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox600.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox600.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox600.setText("$600");
+        jCheckBox600.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox600ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1000.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCheckBox1000.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox1000.setText("$ 1000");
+        jCheckBox1000.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1000ActionPerformed(evt);
+            }
+        });
+
+        jButtonOtraCantidad.setText("Desea retirar otra cantidad:");
+        jButtonOtraCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOtraCantidadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(lbldeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(0, 363, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
+                .addGap(374, 374, 374)
+                .addComponent(jButtonOtraCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3))
-                .addGap(406, 406, 406)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox4))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(lbldeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(364, 364, 364)
+                        .addComponent(jLabel9)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtRetiroOtraCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox100)
+                            .addComponent(jCheckBox200)
+                            .addComponent(jCheckBox400))
+                        .addGap(406, 406, 406)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox1000)
+                            .addComponent(jCheckBox600)
+                            .addComponent(jCheckBox800))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(375, 375, 375))
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                     .addGap(443, 443, 443)
@@ -175,26 +187,25 @@ int cuenta = CajeroPrincipal.correctAccount;
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jCheckBox1)
+                        .addComponent(jCheckBox100)
                         .addGap(29, 29, 29)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox4)))
+                            .addComponent(jCheckBox200)
+                            .addComponent(jCheckBox800)))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jCheckBox600)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox6))
-                .addGap(15, 15, 15)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox400)
+                    .addComponent(jCheckBox1000))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonOtraCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRetirar)
-                    .addComponent(txtRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRetiroOtraCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                     .addGap(45, 45, 45)
@@ -202,17 +213,16 @@ int cuenta = CajeroPrincipal.correctAccount;
                     .addContainerGap(238, Short.MAX_VALUE)))
         );
         jDesktopPane1.setLayer(lbldeposito, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(txtRetiro, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(btnRetirar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txtRetiroOtraCantidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jCheckBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jCheckBox2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jCheckBox3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jCheckBox4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jCheckBox5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jCheckBox6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox100, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox200, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox400, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox800, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox600, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCheckBox1000, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButtonOtraCantidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -226,78 +236,77 @@ int cuenta = CajeroPrincipal.correctAccount;
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
+    private void txtRetiroOtraCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRetiroOtraCantidadActionPerformed
         // TODO add your handling code here:
         
-        int llave =0;
-        try {
-            FileInputStream fi = new FileInputStream("Cuentas.dat");
-            ObjectInputStream oi = new ObjectInputStream(fi);
-             Cuentas = (ArrayList) oi.readObject();
-            oi.close();
-        } catch (Exception exception) {
-            System.out.println("Error -- " + exception.toString());
-            System.out.println("Error no se ha creado el archivo ");
-        }
-        
-        llave = validarNC(cuenta, Cuentas);
-        
-        System.out.println("Saldo disponible en la cuenta seleccionada"+Cuentas.get(pos).getBalanceTotal());
-                if ( Integer.parseInt(txtRetiro.getText()) <=Cuentas.get(pos).getBalanceTotal() ){
-                    Cuentas.get(pos).setBalanceTotal(Cuentas.get(pos).getBalanceTotal()-Integer.parseInt(txtRetiro.getText()));
-                    
-                }
         
         
-        try {
-            FileOutputStream fo = new FileOutputStream("Cuentas.dat");
-            ObjectOutputStream oo = new ObjectOutputStream(fo);
-            oo.writeObject(Cuentas);
-            oo.flush();
-            oo.close();
-            System.out.println("Vector almacenado en archivo");
-        } catch (IOException exception) {
-            System.out.println("Error -- " + exception.toString());
-        }
-        txtRetiro.setText("");
-    }//GEN-LAST:event_btnRetirarActionPerformed
+        
+    }//GEN-LAST:event_txtRetiroOtraCantidadActionPerformed
 
-    private void txtRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRetiroActionPerformed
+    private void txtRetiroOtraCantidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRetiroOtraCantidadFocusGained
         // TODO add your handling code here:
         
-        
-        
-        
-    }//GEN-LAST:event_txtRetiroActionPerformed
+    }//GEN-LAST:event_txtRetiroOtraCantidadFocusGained
 
-    private void txtRetiroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRetiroFocusGained
+    private void jCheckBox100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox100ActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox100ActionPerformed
+
+    private void jCheckBox800ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox800ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox800ActionPerformed
+
+    private void jCheckBox200ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox200ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox200ActionPerformed
+
+    private void jCheckBox400ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox400ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox400ActionPerformed
+
+    private void jCheckBox600ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox600ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox600ActionPerformed
+
+    private void jCheckBox1000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1000ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1000ActionPerformed
+
+    private void jButtonOtraCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOtraCantidadActionPerformed
+        // TODO add your handling code here:
+        jCheckBox100.setEnabled(false);
+        jCheckBox200.setEnabled(false);
+        jCheckBox400.setEnabled(false);
+        jCheckBox600.setEnabled(false);
+        jCheckBox800.setEnabled(false);
+        jCheckBox1000.setEnabled(false);
         
-    }//GEN-LAST:event_txtRetiroFocusGained
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+        jCheckBox100.setSelected(false);
+        jCheckBox200.setSelected(false);
+        jCheckBox400.setSelected(false);
+        jCheckBox600.setSelected(false);
+        jCheckBox800.setSelected(false);
+        jCheckBox1000.setSelected(false);
+        txtRetiroOtraCantidad.setEnabled(true);
+        txtRetiroOtraCantidad.setEditable(true);
+        txtRetiroOtraCantidad.requestFocus();
+    }//GEN-LAST:event_jButtonOtraCantidadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRetirar;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
+    private javax.swing.JButton jButtonOtraCantidad;
+    protected static javax.swing.JCheckBox jCheckBox100;
+    protected static javax.swing.JCheckBox jCheckBox1000;
+    protected static javax.swing.JCheckBox jCheckBox200;
+    protected static javax.swing.JCheckBox jCheckBox400;
+    protected static javax.swing.JCheckBox jCheckBox600;
+    protected static javax.swing.JCheckBox jCheckBox800;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lbldeposito;
-    public static javax.swing.JTextField txtRetiro;
+    public static javax.swing.JTextField txtRetiroOtraCantidad;
     // End of variables declaration//GEN-END:variables
 private int validarNC(int NC, ArrayList Array) {
         int llave = 0; //Cero significa que no lo ha encontrado uno significa que lo ha encontrado
