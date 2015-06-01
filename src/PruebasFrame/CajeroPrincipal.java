@@ -734,6 +734,12 @@ btnCancelar.setEnabled(true);
                  Retiro.jCheckBox600.setEnabled(true);
                  Retiro.jCheckBox800.setEnabled(true);
                  Retiro.jCheckBox1000.setEnabled(true);
+                 Retiro.jCheckBox100.setDisabledIcon(null);
+                Retiro.jCheckBox200.setEnabled(true);
+                 Retiro.jCheckBox400.setEnabled(true);
+                 Retiro.jCheckBox600.setEnabled(true);
+                 Retiro.jCheckBox800.setEnabled(true);
+                 Retiro.jCheckBox1000.setEnabled(true);
                  Retiro.cantidadARetirar =0;
                 break;
             case 4:
@@ -818,6 +824,7 @@ btnCancelar.setEnabled(true);
             int prueba=Integer.parseInt(txtRetiroOtraCantidad.getText());
             if(prueba%20==0){
                  retiro=prueba;
+                 noVeinte=false;
             }else{
                  noVeinte=true;
             }
